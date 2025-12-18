@@ -19,5 +19,6 @@ export enum AppState {
   LOGIN = 'LOGIN',
   DASHBOARD = 'DASHBOARD',
   PROCESSING = 'PROCESSING',
-  RESULT = 'RESULT'
+  RESULT = 'RESULT',
+  PRICING = 'PRICING'
 }

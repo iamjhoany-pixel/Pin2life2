@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pinterest-to-Life AI ✨</title>
+    <title>Pin2Life AI ✨</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,12 +17,31 @@
         font-family: 'Playfair Display', serif;
       }
       .bg-soft-gradient {
-        background: linear-gradient(135deg, #fff5f7 0%, #f3f0ff 50%, #f0fff4 100%);
+        background: linear-gradient(135deg, #fdfcfb 0%, #f3f0ff 40%, #e2f1e5 100%);
       }
       .glass-card {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+      @keyframes float {
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(2deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-float-delayed {
+        animation: float 8s ease-in-out infinite;
+        animation-delay: 2s;
+      }
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .reveal {
+        animation: slideUp 0.8s ease-out forwards;
       }
     </style>
   <script type="importmap">
@@ -37,7 +56,7 @@
 }
 </script>
 </head>
-  <body class="bg-soft-gradient min-h-screen text-slate-800">
+  <body class="bg-soft-gradient min-h-screen text-slate-800 selection:bg-indigo-100 selection:text-indigo-600">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

@@ -2,7 +2,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { ActionPlan } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+// Inicialización siguiendo estrictamente las guías: uso exclusivo de process.env.API_KEY
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const generatePlanFromBoard = async (boardUrl: string): Promise<ActionPlan> => {
   const prompt = `
@@ -23,7 +24,10 @@ export const generatePlanFromBoard = async (boardUrl: string): Promise<ActionPla
       responseSchema: {
         type: Type.OBJECT,
         properties: {
-          goal: { type: Type.STRING, description: "A catchy, motivating summary of the detected goal." },
+          goal: { 
+            type: Type.STRING, 
+            description: "A catchy, motivating summary of the detected goal." 
+          },
           weeklyPlan: {
             type: Type.ARRAY,
             items: {
@@ -35,8 +39,16 @@ export const generatePlanFromBoard = async (boardUrl: string): Promise<ActionPla
               required: ["day", "actions"]
             }
           },
-          firstSteps: { type: Type.ARRAY, items: { type: Type.STRING }, description: "3-5 very small, immediate actions." },
-          suggestedHabits: { type: Type.ARRAY, items: { type: Type.STRING }, description: "2-3 long-term habits." }
+          firstSteps: { 
+            type: Type.ARRAY, 
+            items: { type: Type.STRING }, 
+            description: "3-5 very small, immediate actions." 
+          },
+          suggestedHabits: { 
+            type: Type.ARRAY, 
+            items: { type: Type.STRING }, 
+            description: "2-3 long-term habits." 
+          }
         },
         required: ["goal", "weeklyPlan", "firstSteps", "suggestedHabits"]
       }
@@ -45,5 +57,11 @@ export const generatePlanFromBoard = async (boardUrl: string): Promise<ActionPla
 
   const text = response.text;
   if (!text) throw new Error("No response from AI");
-  return JSON.parse(text) as ActionPlan;
+  
+  try {
+    return JSON.parse(text) as ActionPlan;
+  } catch (e) {
+    console.error("Failed to parse AI response:", text);
+    throw new Error("Invalid AI response format");
+  }
 };
