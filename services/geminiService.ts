@@ -2,7 +2,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { ActionPlan } from "../types";
 
-// Inicialización siguiendo estrictamente las guías: uso exclusivo de process.env.API_KEY
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const generatePlanFromBoard = async (boardUrl: string): Promise<ActionPlan> => {
