@@ -78,7 +78,7 @@ const Landing: React.FC<{ onStart: () => void; onViewPricing: () => void }> = ({
       <div className="max-w-2xl space-y-8 reveal">
         <div className="flex items-center gap-4 mb-2">
           <Logo size="md" />
-          <div className="px-4 py-1.5 bg-green-100/50 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-widest border border-green-200">✨ Version 2.0 now live</div>
+          <div className="px-4 py-1.5 bg-green-100/50 text-green-700 rounded-full text-[10px] font-bold uppercase tracking-widest border border-green-200">✨ Version 2.1 now live</div>
         </div>
         <h1 className="text-6xl md:text-8xl font-bold text-indigo-950 leading-[0.9] tracking-tight">
           Turn inspiration <br />
@@ -95,7 +95,10 @@ const Landing: React.FC<{ onStart: () => void; onViewPricing: () => void }> = ({
             Create My Plan
           </button>
           <button 
-            onClick={onViewPricing}
+            onClick={() => {
+               const flowSec = document.getElementById('manifestation-flow');
+               flowSec?.scrollIntoView({ behavior: 'smooth' });
+            }}
             className="px-10 py-5 bg-white text-slate-600 border border-slate-200 rounded-full text-lg font-semibold hover:bg-slate-50 transition-all"
           >
             How it works
@@ -103,7 +106,6 @@ const Landing: React.FC<{ onStart: () => void; onViewPricing: () => void }> = ({
         </div>
       </div>
 
-      {/* Decorative Collage */}
       <div className="hidden lg:block relative h-[600px] w-full">
         <div className="absolute top-10 left-0 w-64 h-80 rounded-[2.5rem] bg-indigo-100 overflow-hidden shadow-2xl animate-float border-4 border-white transform -rotate-6">
           <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=600&fit=crop" className="w-full h-full object-cover" alt="yoga" />
@@ -117,9 +119,18 @@ const Landing: React.FC<{ onStart: () => void; onViewPricing: () => void }> = ({
       </div>
     </section>
 
+    {/* Aesthetic Marquee */}
+    <div className="my-24 py-6 overflow-hidden border-y border-indigo-50/50 bg-white/30 backdrop-blur-sm">
+      <div className="animate-marquee flex items-center gap-12 whitespace-nowrap">
+        {Array(10).fill(["AESTHETIC", "GROWTH", "MINDFULNESS", "HABITS", "MANIFEST", "VISION"]).flat().map((word, i) => (
+          <span key={i} className="text-4xl font-black text-indigo-50 tracking-tighter opacity-50">{word}</span>
+        ))}
+      </div>
+    </div>
+
     {/* The Flow Section */}
-    <section className="mt-40 px-8 sm:px-12 md:px-24 space-y-20">
-      <div className="text-left space-y-4 max-w-xl">
+    <section id="manifestation-flow" className="mt-40 px-8 sm:px-12 md:px-24 space-y-20">
+      <div className="text-left space-y-4 max-w-xl reveal">
         <h2 className="text-4xl font-bold text-indigo-950 italic font-serif">The Manifestation Flow ✨</h2>
         <p className="text-slate-500">Three simple steps to transform your digital inspiration into a physical routine.</p>
       </div>
@@ -130,7 +141,7 @@ const Landing: React.FC<{ onStart: () => void; onViewPricing: () => void }> = ({
           { step: "02", title: "Analyze", desc: "Our AI identifies the core values, aesthetics, and goals hidden in your pins.", icon: "🧠" },
           { step: "03", title: "Manifest", desc: "Receive a personalized weekly plan, habits, and immediate steps to start living that life.", icon: "🌿" }
         ].map((item, i) => (
-          <div key={i} className="glass-card p-10 rounded-[3rem] space-y-6 hover:translate-y-[-10px] transition-all duration-500 group border-white/50 shadow-sm hover:shadow-xl">
+          <div key={i} className={`glass-card p-10 rounded-[3rem] space-y-6 hover:translate-y-[-10px] transition-all duration-500 group border-white/50 shadow-sm hover:shadow-xl reveal stagger-${i+1}`}>
             <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl shadow-inner group-hover:rotate-12 transition-transform">
               {item.icon}
             </div>
@@ -145,7 +156,7 @@ const Landing: React.FC<{ onStart: () => void; onViewPricing: () => void }> = ({
     </section>
 
     {/* Feature Section */}
-    <section className="mt-40 bg-indigo-950 py-32 rounded-[4rem] mx-4 sm:mx-8 md:mx-12 text-white overflow-hidden relative">
+    <section className="mt-40 bg-indigo-950 py-32 rounded-[4rem] mx-4 sm:mx-8 md:mx-12 text-white overflow-hidden relative reveal">
       <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-400/10 rounded-full blur-[100px] -mr-20 -mt-20"></div>
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-400/10 rounded-full blur-[80px] -ml-20 -mb-20"></div>
       
@@ -153,29 +164,29 @@ const Landing: React.FC<{ onStart: () => void; onViewPricing: () => void }> = ({
         <div className="space-y-8">
           <h2 className="text-5xl font-bold leading-tight font-serif italic">Your Bestie in <br /> Life Design</h2>
           <div className="space-y-6">
-            <div className="flex gap-4">
-              <div className="shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">✓</div>
+            <div className="flex gap-4 group">
+              <div className="shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">✓</div>
               <div>
                 <h4 className="font-bold text-lg">AI Aesthetic Analysis</h4>
                 <p className="text-indigo-200/70 font-light">We don't just read titles; we understand the vibe of your collection.</p>
               </div>
             </div>
-            <div className="flex gap-4">
-              <div className="shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">✓</div>
+            <div className="flex gap-4 group">
+              <div className="shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">✓</div>
               <div>
                 <h4 className="font-bold text-lg">Weekly Actionable Roadmap</h4>
                 <p className="text-indigo-200/70 font-light">Concrete tasks from Monday to Sunday to keep you on track.</p>
               </div>
             </div>
-            <div className="flex gap-4">
-              <div className="shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">✓</div>
+            <div className="flex gap-4 group">
+              <div className="shrink-0 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">✓</div>
               <div>
                 <h4 className="font-bold text-lg">Micro-habit Integration</h4>
                 <p className="text-indigo-200/70 font-light">Small changes that lead to the version of you in your pins.</p>
               </div>
             </div>
           </div>
-          <button onClick={onStart} className="px-8 py-4 bg-white text-indigo-950 rounded-full font-bold hover:bg-indigo-50 transition-all">Start Manifesting ✨</button>
+          <button onClick={onStart} className="px-8 py-4 bg-white text-indigo-950 rounded-full font-bold hover:bg-indigo-50 transition-all hover:scale-105 active:scale-95">Start Manifesting ✨</button>
         </div>
         <div className="relative group">
           <div className="aspect-square bg-white/5 rounded-[4rem] border border-white/10 flex items-center justify-center overflow-hidden">
@@ -332,7 +343,7 @@ const Login: React.FC<{ onManualUser: (user: any) => void }> = ({ onManualUser }
             <input type="email" placeholder="Email" required className="w-full px-6 py-4 bg-white/50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-100 transition-all" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder="Password" required className="w-full px-6 py-4 bg-white/50 border border-slate-100 rounded-2xl outline-none focus:ring-2 focus:ring-indigo-100 transition-all" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <button type="submit" disabled={loading} className="w-full py-5 bg-indigo-950 text-white rounded-2xl font-bold hover:bg-black transition-all shadow-lg disabled:opacity-50">
+          <button type="submit" disabled={loading} className="w-full py-5 bg-indigo-950 text-white rounded-2xl font-bold hover:bg-black transition-all shadow-lg disabled:opacity-50 active:scale-95">
             {loading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Log In')}
           </button>
         </form>
@@ -360,7 +371,7 @@ const Dashboard: React.FC<{ onGenerate: (url: string) => void }> = ({ onGenerate
           <label className="text-sm font-semibold text-slate-700 ml-1">Pinterest Board URL</label>
           <input type="text" placeholder="https://pinterest.com/..." className="w-full px-6 py-5 bg-white border border-slate-100 rounded-3xl focus:ring-4 focus:ring-indigo-50 transition-all outline-none text-lg" value={url} onChange={(e) => setUrl(e.target.value)} />
         </div>
-        <button onClick={() => onGenerate(url)} disabled={!url} className="w-full py-5 bg-indigo-950 text-white rounded-3xl font-bold text-lg hover:scale-[1.02] transition-all shadow-xl shadow-indigo-100">✨ Generate My Action Plan</button>
+        <button onClick={() => onGenerate(url)} disabled={!url} className="w-full py-5 bg-indigo-950 text-white rounded-3xl font-bold text-lg hover:scale-[1.02] transition-all shadow-xl shadow-indigo-100 active:scale-95">✨ Generate My Action Plan</button>
       </div>
     </div>
   );
